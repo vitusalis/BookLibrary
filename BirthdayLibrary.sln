@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirthdayLibrary.BLL", "Birt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirthdayLibrary.DAL", "BirthdayLibrary.DAL\BirthdayLibrary.DAL.csproj", "{8B70206E-F82D-48DD-B589-59781C1DF0CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayLibraryMVC", "BirthdayLibraryMVC\BirthdayLibraryMVC.csproj", "{EB97B063-E7F6-4BAA-A063-42DA248B47E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirthdayLibraryMVC", "BirthdayLibraryMVC\BirthdayLibraryMVC.csproj", "{EB97B063-E7F6-4BAA-A063-42DA248B47E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

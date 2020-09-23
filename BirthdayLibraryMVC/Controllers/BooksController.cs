@@ -42,7 +42,6 @@ namespace BirthdayLibraryMVC.Controllers
                     BookInfo = JsonConvert.DeserializeObject<List<Book>>(BookResponse);
 
                 }
-
                 return View(BookInfo);
             }
         }
@@ -81,7 +80,6 @@ namespace BirthdayLibraryMVC.Controllers
         // GET: Books/Create
         public IActionResult Create()
         {
-            //PopulateAuthorsDropDownList();
             return View();
         }
 
@@ -99,7 +97,7 @@ namespace BirthdayLibraryMVC.Controllers
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     book = JsonConvert.DeserializeObject<Book>(apiResponse);
                 }
-                //PopulateAuthorsDropDownList(book.AuthorId);
+                PopulateAuthorsDropDownList(book.BookAuthors);
                 return RedirectToAction("Index");
             }
         }
@@ -130,6 +128,7 @@ namespace BirthdayLibraryMVC.Controllers
                     book = JsonConvert.DeserializeObject<Book>(BookResponse);
 
                 }
+                PopulateAuthorsDropDownList(book.BookAuthors);
                 return View(book);
             }
         }
@@ -187,31 +186,31 @@ namespace BirthdayLibraryMVC.Controllers
             }
         }
 
-        //private async void PopulateAuthorsDropDownList(object selectedAuthor = null)
-        //{
+        private async void PopulateAuthorsDropDownList(object selectedAuthor = null)
+        {
 
-        //    List<Author> AuthorInfo = new List<Author>();
+            List<Author> AuthorInfo = new List<Author>();
 
-        //    using (var client = new HttpClient())
-        //    {
+            using (var client = new HttpClient())
+            {
 
-        //        client.BaseAddress = new Uri(Baseurl);
+                client.BaseAddress = new Uri(Baseurl);
 
-        //        client.DefaultRequestHeaders.Clear();
-        //        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-        //        HttpResponseMessage Res = await client.GetAsync("api/Authors/");
+                HttpResponseMessage Res = await client.GetAsync("api/Authors/");
 
-        //        if (Res.IsSuccessStatusCode)
-        //        {
-        //            var AuthorResponse = Res.Content.ReadAsStringAsync().Result;
+                if (Res.IsSuccessStatusCode)
+                {
+                    var AuthorResponse = Res.Content.ReadAsStringAsync().Result;
 
-        //            AuthorInfo = JsonConvert.DeserializeObject<List<Author>>(AuthorResponse);
+                    AuthorInfo = JsonConvert.DeserializeObject<List<Author>>(AuthorResponse);
 
-        //        }
-        //        Console.WriteLine("_____________________");
-        //        ViewBag.AuthorId = new SelectList(AuthorInfo, "Id", "Name", selectedAuthor);
-        //    }
-        //}
+                }
+                Console.WriteLine("_____________________");
+                ViewBag.AuthorId = new SelectList(AuthorInfo, "Id", "Name", selectedAuthor);
+            }
+        }
     }
 }

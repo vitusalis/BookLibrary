@@ -72,6 +72,9 @@ namespace BirthdayLibrary.DAL.Migrations
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
                     b.HasKey("BookId", "AuthorId");
 
                     b.HasIndex("AuthorId");

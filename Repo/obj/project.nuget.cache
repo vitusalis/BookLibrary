@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "dgSpecHash": "pR+o/4aci87bOwmmTifZFZjumwophRvE1MfRxX2uM3ZJtet3Qj6PyqjDIJCyShXwucOYiaR7ZC2z+fOt9CDImw==",
+  "success": false,
+  "projectFilePath": "C:\\Users\\victo\\source\\repos\\BirthdayLibrary\\Repo\\Repo.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\victo\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\victo\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "Project BirthdayLibrary.BLL is not compatible with netstandard2.0 (.NETStandard,Version=v2.0). Project BirthdayLibrary.BLL supports: netcoreapp3.1 (.NETCoreApp,Version=v3.1)",
+      "libraryId": "BirthdayLibrary.BLL",
+      "targetGraphs": [
+        ".NETStandard,Version=v2.0"
+      ]
+    },
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "Project BirthdayLibrary.DAL is not compatible with netstandard2.0 (.NETStandard,Version=v2.0). Project BirthdayLibrary.DAL supports: netcoreapp3.1 (.NETCoreApp,Version=v3.1)",
+      "libraryId": "BirthdayLibrary.DAL",
+      "targetGraphs": [
+        ".NETStandard,Version=v2.0"
+      ]
+    }
+  ]
+}

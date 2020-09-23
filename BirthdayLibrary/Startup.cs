@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BirthdayLibrary.BLL.Data;
+using BirthdayLibrary.BLL.Models;
 using BirthdayLibrary.DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,7 +30,8 @@ namespace BirthdayLibrary
         {
             services.AddDbContext<ApplicationDbContext>();
 
-            services.AddScoped<EfCoreBookRepository>();
+            //services.AddScoped<EfCoreBookRepository>();
+            services.AddScoped<IBookRepository, BookRepository>();
 
             services.AddControllers()
                 .AddNewtonsoftJson(options =>
