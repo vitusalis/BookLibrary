@@ -182,7 +182,6 @@ namespace BirthdayLibraryMVC.Controllers
                 using (var response = await client.DeleteAsync($"api/Authors/" + id))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    var author = JsonConvert.DeserializeObject<Author>(apiResponse);
                     return RedirectToAction("Index");
                 }
 

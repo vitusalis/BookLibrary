@@ -9,9 +9,9 @@ namespace BirthdayLibrary.BLL.Models
     {
         Task<IEnumerable<Book>> GetBooks();
         Task<Book> GetBook(int bookId);
-        Task<Book> AddBook(Book book);
-        Task<Book> UpdateBook(Book book);
-        void DeleteBook(int bookId);
+        Task<Book> AddBook(BookDTO bookDto);
+        Task<Book> UpdateBook(BookDTO bookDto);
+        Task<bool> DeleteBook(int bookId);
         
     }
 }

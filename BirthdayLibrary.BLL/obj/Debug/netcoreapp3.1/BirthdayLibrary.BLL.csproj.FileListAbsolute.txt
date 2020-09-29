@@ -1,9 +1,0 @@
-C:\Users\victo\source\repos\BirthdayLibrary\BirthdayLibrary.BLL\bin\Debug\netcoreapp3.1\BirthdayLibrary.BLL.deps.json
-C:\Users\victo\source\repos\BirthdayLibrary\BirthdayLibrary.BLL\bin\Debug\netcoreapp3.1\BirthdayLibrary.BLL.dll
-C:\Users\victo\source\repos\BirthdayLibrary\BirthdayLibrary.BLL\bin\Debug\netcoreapp3.1\BirthdayLibrary.BLL.pdb
-C:\Users\victo\source\repos\BirthdayLibrary\BirthdayLibrary.BLL\obj\Debug\netcoreapp3.1\BirthdayLibrary.BLL.csprojAssemblyReference.cache
-C:\Users\victo\source\repos\BirthdayLibrary\BirthdayLibrary.BLL\obj\Debug\netcoreapp3.1\BirthdayLibrary.BLL.AssemblyInfoInputs.cache
-C:\Users\victo\source\repos\BirthdayLibrary\BirthdayLibrary.BLL\obj\Debug\netcoreapp3.1\BirthdayLibrary.BLL.AssemblyInfo.cs
-C:\Users\victo\source\repos\BirthdayLibrary\BirthdayLibrary.BLL\obj\Debug\netcoreapp3.1\BirthdayLibrary.BLL.csproj.CoreCompileInputs.cache
-C:\Users\victo\source\repos\BirthdayLibrary\BirthdayLibrary.BLL\obj\Debug\netcoreapp3.1\BirthdayLibrary.BLL.dll
-C:\Users\victo\source\repos\BirthdayLibrary\BirthdayLibrary.BLL\obj\Debug\netcoreapp3.1\BirthdayLibrary.BLL.pdb

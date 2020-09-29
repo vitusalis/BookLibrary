@@ -17,10 +17,10 @@ namespace BirthdayLibraryMVC.Controllers
     public class BooksController : Controller
     {
 
-        // GET: Books
         //Hosted web API REST Book base url 
-
         string Baseurl = "http://localhost:8888/";
+        
+        // GET: Books
         public async Task<ActionResult> Index()
         {
             List<Book> BookInfo = new List<Book>();
@@ -49,10 +49,12 @@ namespace BirthdayLibraryMVC.Controllers
         // GET: Books/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            
             if (id == null)
-            {
                 return NotFound();
-            }
+            
+            if (TempData["message"] != null)
+                ViewBag.Message = TempData["message"];
 
             Book book = new Book();
 
@@ -78,15 +80,38 @@ namespace BirthdayLibraryMVC.Controllers
         }
 
         // GET: Books/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            if (TempData["message"] != null)
+                ViewBag.Message = TempData["message"];
+
+            List<Author> AuthorInfo = new List<Author>();
+            using (var client = new HttpClient())
+            {
+
+                client.BaseAddress = new Uri(Baseurl);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = await client.GetAsync("api/Authors/");
+                if (Res.IsSuccessStatusCode)
+                {
+                    var AuthorResponse = Res.Content.ReadAsStringAsync().Result;
+                    AuthorInfo = JsonConvert.DeserializeObject<List<Author>>(AuthorResponse);
+                    Dictionary<int, string> authorList = new Dictionary<int, string>();
+                    foreach (var author in AuthorInfo)
+                        authorList.Add(author.Id, author.Name + " " + author.LastName);
+                    ViewBag.AuthorList = authorList;
+                }
+                
+            }
+
             return View();
         }
 
         // POST: Books/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Book book)
+        public async Task<IActionResult> Create(BookDTO book)
         {
             using (var client = new HttpClient())
             {
@@ -95,10 +120,11 @@ namespace BirthdayLibraryMVC.Controllers
                 using (var response = await client.PostAsync($"api/Books/", content))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    book = JsonConvert.DeserializeObject<Book>(apiResponse);
+                    if (response.IsSuccessStatusCode)
+                        return RedirectToAction("Index");
                 }
-                PopulateAuthorsDropDownList(book.BookAuthors);
-                return RedirectToAction("Index");
+                TempData["message"] = "Livro nao pode ser criado";
+                return RedirectToAction("Create");
             }
         }
 
@@ -128,14 +154,11 @@ namespace BirthdayLibraryMVC.Controllers
                     book = JsonConvert.DeserializeObject<Book>(BookResponse);
 
                 }
-                PopulateAuthorsDropDownList(book.BookAuthors);
                 return View(book);
             }
         }
 
         // POST: Books/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Book book)
@@ -153,8 +176,6 @@ namespace BirthdayLibraryMVC.Controllers
 
                 using (var response = await client.PutAsync($"api/Books/" + id, content))
                 {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    book = JsonConvert.DeserializeObject<Book>(apiResponse);
                     return RedirectToAction("Index");
                 }
             }
@@ -165,51 +186,16 @@ namespace BirthdayLibraryMVC.Controllers
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             using (var client = new HttpClient())
             {
-
                 client.BaseAddress = new Uri(Baseurl);
-                //client.DefaultRequestHeaders.Clear();
-                //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
                 using (var response = await client.DeleteAsync($"api/Books/" + id))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    var book = JsonConvert.DeserializeObject<Book>(apiResponse);
                     return RedirectToAction("Index");
                 }
-
-            }
-        }
-
-        private async void PopulateAuthorsDropDownList(object selectedAuthor = null)
-        {
-
-            List<Author> AuthorInfo = new List<Author>();
-
-            using (var client = new HttpClient())
-            {
-
-                client.BaseAddress = new Uri(Baseurl);
-
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                HttpResponseMessage Res = await client.GetAsync("api/Authors/");
-
-                if (Res.IsSuccessStatusCode)
-                {
-                    var AuthorResponse = Res.Content.ReadAsStringAsync().Result;
-
-                    AuthorInfo = JsonConvert.DeserializeObject<List<Author>>(AuthorResponse);
-
-                }
-                Console.WriteLine("_____________________");
-                ViewBag.AuthorId = new SelectList(AuthorInfo, "Id", "Name", selectedAuthor);
             }
         }
     }

@@ -22,15 +22,15 @@ namespace BirthdayLibrary.BLL.Models
         [HttpGet]
         public async Task<IEnumerable<Author>> GetAuthors()
         {
-            return await context.Authors.ToListAsync();
+            return await context.Authors.Include(a=>a.BookAuthors).ThenInclude(ba=>ba.Book).ToListAsync();
         }
-        
+
         [HttpGet("{id}")]
-        public async Task<Author> GetAuthor(int authorId)
+        public async Task<Author> GetAuthor(int id)
         {
-            return await context.Authors.FindAsync(authorId);
+            return await context.Authors.FirstOrDefaultAsync(e => e.Id == id);
         }
-        
+
         [HttpPost]
         public async Task<Author> AddAuthor(Author author)
         {
@@ -65,14 +65,19 @@ namespace BirthdayLibrary.BLL.Models
         }
         
         [HttpDelete("{id}")]
-        public async void DeleteAuthor(int authorId)
+        public async Task<bool> DeleteAuthor(int id)
         {
-            var author = await context.Authors.FindAsync(authorId);
-            if (author != null)
+            if (id != 0)
             {
-                context.Authors.Remove(author);
-                await context.SaveChangesAsync();
+                var author = await context.Authors.FindAsync(id);
+                if (author != null)
+                {
+                    context.Authors.Remove(author);
+                    await context.SaveChangesAsync();
+                    return true;
+                }
             }
+            return false;
         }
 
     }

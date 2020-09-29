@@ -11,7 +11,7 @@ namespace BirthdayLibrary.BLL.Models
         Task<Author> GetAuthor(int authorId);
         Task<Author> AddAuthor(Author author);
         Task<Author> UpdateAuthor(Author author);
-        void DeleteAuthor(int authorId);
+        Task<bool> DeleteAuthor(int authorId);
         
     }
 }
